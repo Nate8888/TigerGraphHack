@@ -155,3 +155,30 @@ for each_user in all_users:
             file_data = file_generator(file_id, each_user['id'])
             file_id += 1
             all_user_files.append(file_data)
+
+
+def external_generator(eid, uid):
+    device_names = ["UltraSSD 1TB", "Flashdrive", "iPhone X", "iPhone 13 Pro Max", "SD Card", "CD"]
+    external_obj = {}
+    external_obj['id'] = eid
+    external_obj['uid'] = uid
+    external_obj['date'] = "2022-{}-{} {}:{}:{}".format(random.randint(1, 3), random.randint(1, 28), random.randint(0, 23), random.randint(0, 59), random.randint(0, 59))
+    external_obj['devicename'] = device_names[random.randint(0, len(device_names) - 1)]
+    return external_obj
+
+all_users_external = []
+external_id = 1
+for each_user in all_users:
+    random_number = random.randint(1, 100)
+
+    # 10% of users will have an external device
+    if random_number <= 10:
+        external_data = external_generator(external_id, each_user['id'])
+        external_id += 1
+        all_users_external.append(external_data)
+
+        # 10% of users will have more than 1 external device
+        while random.randint(1, 100) <= 10:
+            external_data = external_generator(external_id, each_user['id'])
+            external_id += 1
+            all_users_external.append(external_data)
