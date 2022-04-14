@@ -24,6 +24,7 @@ for each_name in names:
     individual_threat_score = random.randint(max_threat_scores[role_index]-20, max_threat_scores[role_index])
     user_obj['threatscore'] = individual_threat_score
     id += 1
+    print(user_obj)
     all_users.append(user_obj)
 
 # Done with user creation
@@ -58,12 +59,14 @@ for each_user in all_users:
         browse_data = browse_generator(browse_id, each_user['id'])
         browse_id += 1
         all_users_browse.append(browse_data)
+        print(browse_data)
 
         # After a user has a browse history, they will have a random number of browses based on %
         while random.randint(0, 1) == 0:
             browse_data = browse_generator(browse_id, each_user['id'])
             browse_id += 1
             all_users_browse.append(browse_data)
+            print(browse_data)
 
 # Done with browse history
 
@@ -88,12 +91,14 @@ for each_user in all_users:
         incident_data = incident_generator(incident_id, each_user['id'])
         incident_id += 1
         all_users_incidents.append(incident_data)
+        print(incident_data)
 
         # 10% of users will have more than 1 incident
         while random.randint(1, 100) <= 10:
             incident_data = incident_generator(incident_id, each_user['id'])
             incident_id += 1
             all_users_incidents.append(incident_data)
+            print(incident_data)
 
 # Done with incident history
 FILES = ['employees.xml', 'salaries.csv', 'password.txt', 'config.yaml', 'main.py', 'index.html', 'style.css', 'script.js', 'projectdeadlines.xml', 'confidential.docx', 'secret.docx', 'hidden.xml']
@@ -135,6 +140,7 @@ def file_generator(fid, uid):
         honeypot_obj['fid'] = fid
         honeypot_obj['severity'] = "HIGH"
         all_files_honeypot.append(honeypot_obj)
+        print(honeypot_obj)
     
     return file_obj
 
@@ -150,12 +156,14 @@ for each_user in all_users:
         file_data = file_generator(file_id, each_user['id'])
         file_id += 1
         all_user_files.append(file_data)
+        print(file_data)
 
         # 65% of users will have more than 1 file
         while random.randint(1, 100) <= 65:
             file_data = file_generator(file_id, each_user['id'])
             file_id += 1
             all_user_files.append(file_data)
+            print(file_data)
 
 
 def external_generator(eid, uid):
@@ -177,12 +185,14 @@ for each_user in all_users:
         external_data = external_generator(external_id, each_user['id'])
         external_id += 1
         all_users_external.append(external_data)
+        print(external_data)
 
         # 10% of users will have more than 1 external device
         while random.randint(1, 100) <= 10:
             external_data = external_generator(external_id, each_user['id'])
             external_id += 1
             all_users_external.append(external_data)
+            print(external_data)
 
 
 APPS = ['Excel', 'Word', 'Atom', 'VS Code', 'Jira', 'Adobe Photoshop', 'Adobe Illustrator', 'Node.js', 'Git', 'Wireshark', 'Metasploit', 'Slack']
@@ -216,12 +226,14 @@ for each_user in all_users:
         app_data = application_generator(app_id, each_user['id'])
         app_id += 1
         all_user_apps.append(app_data)
+        print(app_data)
 
         # 10% of users will have more than 1 application
         while random.randint(1, 100) <= 65:
             app_data = application_generator(app_id, each_user['id'])
             app_id += 1
             all_user_apps.append(app_data)
+            print(app_data)
 
 def email_generator(eid, uid, username):
     messages = ["Lorem Ipsum is a bad example of messages", "Nate is the best", "We are big fans of Dr. Henrich and Oscar", "Click here to win the jackpot! https://win.com", "Your email was hacked! Click here to recover it: https://evil.com"]
@@ -260,12 +272,14 @@ for each_user in all_users:
         email_data = email_generator(email_id, each_user['id'], each_user['name'])
         email_id += 1
         all_user_emails.append(email_data)
+        print(email_data)
 
         # 60% of users will have more than 1 email
         while random.randint(1, 100) <= 60:
             email_data = email_generator(email_id, each_user['id'], each_user['name'])
             email_id += 1
             all_user_emails.append(email_data)
+            print(email_data)
 
 # Takes a list of dictionaries
 # and write a csv file for it.
