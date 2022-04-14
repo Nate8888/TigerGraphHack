@@ -1,0 +1,46 @@
+CREATE QUERY honeypot_threatscore() FOR GRAPH BehaviorPredator API("v2") SYNTAX v2 {
+
+  SetAccum<edge> @@FinalEdgeSet_4;
+  SetAccum<edge> @@FinalEdgeSet_5;
+  SetAccum<vertex<User>> @@FinalVertexSet_1;
+  SetAccum<vertex<FileEvent>> @@FinalVertexSet_2;
+  SetAccum<vertex<FileHoneypot>> @@FinalVertexSet_3;
+
+  VertexSet_1 = 
+        SELECT alias_schema_1
+        FROM User:alias_schema_1 -(user_file:alias_schema_4)- FileEvent:UserFiles,
+             FileEvent:UserFiles -(file_is_pot:alias_schema_5)- FileHoneypot:UserHoneypots
+        WHERE (alias_schema_1.threatscore > 48)
+        ACCUM @@FinalEdgeSet_4 += alias_schema_4,
+              @@FinalEdgeSet_5 += alias_schema_5
+        POST-ACCUM @@FinalVertexSet_1 += alias_schema_1
+        POST-ACCUM @@FinalVertexSet_2 += UserFiles
+        POST-ACCUM @@FinalVertexSet_3 += UserHoneypots
+        ;
+
+  PRINT @@FinalEdgeSet_4;
+
+  PRINT @@FinalEdgeSet_5;
+
+  VertexSet_1 = { @@FinalVertexSet_1 };
+  PRINT VertexSet_1[
+    VertexSet_1.name AS name,
+    VertexSet_1.role AS role,
+    VertexSet_1.threatscore AS threatscore
+  ];
+
+  VertexSet_2 = { @@FinalVertexSet_2 };
+  PRINT VertexSet_2[
+    VertexSet_2.start_date AS start_date,
+    VertexSet_2.end_date AS end_date,
+    VertexSet_2.file_path AS file_path,
+    VertexSet_2.category AS category,
+    VertexSet_2.actiontype AS actiontype
+  ] AS UserFiles;
+
+  VertexSet_3 = { @@FinalVertexSet_3 };
+  PRINT VertexSet_3[
+    VertexSet_3.severity AS severity
+  ] AS UserHoneypots;
+
+}
