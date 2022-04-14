@@ -1,0 +1,5 @@
+# Create a Tigergraph query that findusers that finds all the users with a threatscore of more than parameter score.
+CREATE QUERY findusers(score INT) FOR GRAPH Demo{
+  // Write query logic here
+  PRINT "Hello world!"
+}
