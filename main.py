@@ -1,4 +1,5 @@
 import random
+import string
 # Run Data Collection
 
 roles = ["Cable and Antenna Systems", "Client Systems", "Computer Systems Programming", "Cyber Systems Operations",
@@ -74,6 +75,7 @@ def incident_generator(iid, uid):
     incident_obj['description'] = "Incident {} description".format(iid)
     incident_obj['severity'] = sev[random.randint(0, 2)]
     incident_obj['reportedby'] = names[random.randint(0, len(names) - 1)]
+    return incident_obj
 
 all_users_incidents = []
 incident_id = 1
@@ -93,3 +95,63 @@ for each_user in all_users:
             all_users_incidents.append(incident_data)
 
 # Done with incident history
+FILES = ['employees.xml', 'salaries.csv', 'password.txt', 'config.yaml', 'main.py', 'index.html', 'style.css', 'script.js', 'projectdeadlines.xml', 'confidential.docx', 'secret.docx', 'hidden.xml']
+FILE_CATS = ['hr', 'hr', 'secret', 'code', 'code', 'code', 'code', 'code', 'pm', 'secret', 'secret', 'secret']
+all_files_honeypot = []
+hid = 1
+
+def file_generator(fid, uid):
+    global FILES
+    global FILE_CATS
+    global hid
+    global all_files_honeypot
+
+    file_obj = {}
+    file_obj['id'] = fid
+    file_obj['uid'] = uid
+
+    m = random.randint(1, 3)
+    d = random.randint(1, 28)
+    h = random.randint(0, 23)
+    mi = random.randint(0, 50)
+
+    file_obj['start_date'] = "2022-{}-{} {}:{}:{}".format(m, d, h, mi, 0)
+    # Ensure that the end date is after the start date
+    file_obj['end_date'] = "2022-{}-{} {}:{}:{}".format(m, d, h, random.randint(51, 59), random.randint(0, 59))
+    file_obj['action_type'] = "read"
+
+    random_index = random.randint(0, len(FILES) - 1)
+
+    prefix = random.choice(string.ascii_letters) + random.choice(string.digits)
+
+    file_obj['file_path'] = prefix + FILES[random_index]
+    file_obj['category'] = FILE_CATS[random_index]
+
+    if file_obj['category'] == 'secret':
+        honeypot_obj = {}
+        honeypot_obj['id'] = hid
+        hid += 1
+        honeypot_obj['fid'] = fid
+        honeypot_obj['severity'] = "HIGH"
+        all_files_honeypot.append(honeypot_obj)
+    
+    return file_obj
+
+
+
+all_user_files = []
+file_id = 1
+for each_user in all_users:
+    random_number = random.randint(1, 100)
+
+    # 50% of users will have a file
+    if random_number <= 50:
+        file_data = file_generator(file_id, each_user['id'])
+        file_id += 1
+        all_user_files.append(file_data)
+
+        # 65% of users will have more than 1 file
+        while random.randint(1, 100) <= 65:
+            file_data = file_generator(file_id, each_user['id'])
+            file_id += 1
+            all_user_files.append(file_data)
