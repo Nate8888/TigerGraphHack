@@ -182,3 +182,45 @@ for each_user in all_users:
             external_data = external_generator(external_id, each_user['id'])
             external_id += 1
             all_users_external.append(external_data)
+
+
+APPS = ['Excel', 'Word', 'Atom', 'VS Code', 'Jira', 'Adobe Photoshop', 'Adobe Illustrator', 'Node.js', 'Git', 'Wireshark', 'Metasploit', 'Slack']
+APPS_CATS = ['hr', 'hr', 'code', 'code', 'pm', 'design', 'design', 'code', 'code', 'cyber', 'cyber', 'pm']
+
+def application_generator(aid, uid):
+    app_obj = {}
+    app_obj['id'] = aid
+    app_obj['uid'] = uid
+    m = random.randint(1, 3)
+    d = random.randint(1, 28)
+    h = random.randint(0, 23)
+    mi = random.randint(0, 35)
+
+    app_obj['start_date'] = "2022-{}-{} {}:{}:{}".format(m, d, h, mi, 0)
+    # Ensure that the end date is after the start date
+    app_obj['end_date'] = "2022-{}-{} {}:{}:{}".format(m, d, h, random.randint(37, 59), random.randint(0, 59))
+
+    random_index = random.randint(0, len(APPS) - 1)
+    app_obj['app_name'] = APPS[random_index]
+    app_obj['category'] = APPS_CATS[random_index]
+    return app_obj
+
+all_user_apps = []
+app_id = 1
+for each_user in all_users:
+    random_number = random.randint(1, 100)
+
+    # 10% of users will have an application
+    if random_number <= 80:
+        app_data = application_generator(app_id, each_user['id'])
+        app_id += 1
+        all_user_apps.append(app_data)
+
+        # 10% of users will have more than 1 application
+        while random.randint(1, 100) <= 65:
+            app_data = application_generator(app_id, each_user['id'])
+            app_id += 1
+            all_user_apps.append(app_data)
+
+
+        
