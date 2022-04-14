@@ -24,6 +24,9 @@ for each_name in names:
     id += 1
     all_users.append(user_obj)
 
+# Done with user creation
+
+# TODO: COMPILE URLS, TITLES, CATEGORIES
 URLS = []
 CATS = []
 TITL = []
@@ -42,7 +45,7 @@ def browse_generator(bid, uid):
     browse_obj['uid'] = uid
     return browse_obj
 
-# Done with user creation
+
 all_users_browse = []
 browse_id = 1
 for each_user in all_users:
@@ -59,3 +62,34 @@ for each_user in all_users:
             browse_data = browse_generator(browse_id, each_user['id'])
             browse_id += 1
             all_users_browse.append(browse_data)
+
+# Done with browse history
+
+def incident_generator(iid, uid):
+    sev = ["LOW", "MEDIUM", "HIGH"]
+    incident_obj = {}
+    incident_obj['id'] = iid
+    incident_obj['uid'] = uid
+    incident_obj['date'] = "2022-{}-{} {}:{}:{}".format(random.randint(1, 3), random.randint(1, 28), random.randint(0, 23), random.randint(0, 59), random.randint(0, 59))
+    incident_obj['description'] = "Incident {} description".format(iid)
+    incident_obj['severity'] = sev[random.randint(0, 2)]
+    incident_obj['reportedby'] = names[random.randint(0, len(names) - 1)]
+
+all_users_incidents = []
+incident_id = 1
+for each_user in all_users:
+    random_number = random.randint(1, 100)
+
+    # 5% of users will have an incident history
+    if random_number <= 5:
+        incident_data = incident_generator(incident_id, each_user['id'])
+        incident_id += 1
+        all_users_incidents.append(incident_data)
+
+        # 10% of users will have more than 1 incident
+        while random.randint(1, 100) <= 10:
+            incident_data = incident_generator(incident_id, each_user['id'])
+            incident_id += 1
+            all_users_incidents.append(incident_data)
+
+# Done with incident history
