@@ -1,5 +1,0 @@
-﻿id,userid,start_date,end_date,file_path,category,type
-1,1,2022-4-13 19:18:00,2022-4-13 19:20:00,"C:\Users\wilkn\Desktop\projectfiles\cyberdata\hidden\report1.txt",report,read
-2,2,2022-4-12 19:18:00,2022-4-12 19:20:00,"C:\Users\wilkn\Desktop\projectfiles\cyberdata\hidden\report2.txt",report,read
-3,3,2022-4-11 19:18:00,2022-4-11 19:20:00,"C:\Users\wilkn\Desktop\projectfiles\cyberdata\hidden\report3.txt",report,read
-4,1,2022-4-10 19:18:00,2022-4-10 19:20:00,"C:\Users\wilkn\Desktop\projectfiles\cyberdata\hidden\report4.txt",report,read
