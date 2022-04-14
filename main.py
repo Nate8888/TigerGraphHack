@@ -24,4 +24,38 @@ for each_name in names:
     id += 1
     all_users.append(user_obj)
 
+URLS = []
+CATS = []
+TITL = []
+
+def browse_generator(bid, uid):
+    global URLS
+    global CATS
+    global TITL
+    browse_obj = {}
+    random_index = random.randint(0, len(URLS) - 1)
+    browse_obj['url'] = URLS[random_index]
+    browse_obj['title'] = TITL[random_index]
+    browse_obj['category'] = CATS[random_index]
+    browse_obj['date'] = "2022-{}-{} {}:{}:{}".format(random.randint(1, 3), random.randint(1, 28), random.randint(0, 23), random.randint(0, 59), random.randint(0, 59))
+    browse_obj['id'] = bid
+    browse_obj['uid'] = uid
+    return browse_obj
+
 # Done with user creation
+all_users_browse = []
+browse_id = 1
+for each_user in all_users:
+    random_number = random.randint(1, 100)
+
+    # 75% of users will have a browse history
+    if random_number <= 75:
+        browse_data = browse_generator(browse_id, each_user['id'])
+        browse_id += 1
+        all_users_browse.append(browse_data)
+
+        # After a user has a browse history, they will have a random number of browses based on %
+        while random.randint(0, 1) == 0:
+            browse_data = browse_generator(browse_id, each_user['id'])
+            browse_id += 1
+            all_users_browse.append(browse_data)
