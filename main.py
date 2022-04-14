@@ -1,3 +1,4 @@
+import csv
 import random
 import string
 # Run Data Collection
@@ -28,9 +29,9 @@ for each_name in names:
 # Done with user creation
 
 # TODO: COMPILE URLS, TITLES, CATEGORIES
-URLS = []
-CATS = []
-TITL = []
+URLS = ["github.com", "stackoverflow.com", "monday.com", "slack.com", "cyberforumleaks.com", "facebook.com", "coinbase.com", "fiver.com"]
+CATS = ["code", "code", "pm", "pm", "breach", "social", "crypto", "hire"]
+TITL = ["GitHub", "StackOverflow", "Monday", "Slack", "CyberforumLeaks", "Facebook", "crypto", "Fiver"]
 
 def browse_generator(bid, uid):
     global URLS
@@ -222,5 +223,67 @@ for each_user in all_users:
             app_id += 1
             all_user_apps.append(app_data)
 
+def email_generator(eid, uid, username):
+    messages = ["Lorem Ipsum is a bad example of messages", "Nate is the best", "We are big fans of Dr. Henrich and Oscar", "Click here to win the jackpot! https://win.com", "Your email was hacked! Click here to recover it: https://evil.com"]
+    providers = ["@gmail.com", "@yahoo.com", "@hotmail.com", "@outlook.com", "@aol.com", "@ussf.mil", "@ussf.mil", "@ussf.mil"]
+    words = []
+    for each_message in messages:
+        words += each_message.split()
+    
+    random_words = random.sample(words, random.randint(5,8))
+    
+    email_obj = {}
+    email_obj['id'] = eid
+    email_obj['uid'] = uid
+    email_obj['date'] = "2022-{}-{} {}:{}:{}".format(random.randint(1, 3), random.randint(1, 28), random.randint(0, 23), random.randint(0, 59), random.randint(0, 59))
+    email_obj['message'] = ' '.join(random_words)
+    email_obj['sender'] = username + "@ussf.mil"
+    email_obj['recipient'] = random.choice(names) + random.choice(providers)
+    # random float with 2 decimals between -1.0 to 1.0
+    email_obj['sentiment'] = round(random.uniform(-1.0, 1.0), 2)
+    email_obj['attachment'] = "false"
 
-        
+    # random number between 0 and 100
+    # if <= 5, then email has attachment
+    if random.randint(0, 100) <= 5:
+        email_obj['attachment'] = "true"
+
+    return email_obj
+
+all_user_emails = []
+email_id = 1
+for each_user in all_users:
+    random_number = random.randint(1, 100)
+
+    # 100% of users will have an email
+    if random_number <= 100:
+        email_data = email_generator(email_id, each_user['id'], each_user['name'])
+        email_id += 1
+        all_user_emails.append(email_data)
+
+        # 60% of users will have more than 1 email
+        while random.randint(1, 100) <= 60:
+            email_data = email_generator(email_id, each_user['id'], each_user['name'])
+            email_id += 1
+            all_user_emails.append(email_data)
+
+# Takes a list of dictionaries
+# and write a csv file for it.
+# Each row in the csv file is one dictionary from the list.
+# The keys of the dictionary are the column names.
+def write_csv(list_of_dictionaries, filename):
+    with open(filename, 'w') as csvfile:
+        fieldnames = list_of_dictionaries[0].keys()
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for each_dict in list_of_dictionaries:
+            writer.writerow(each_dict)
+
+write_csv(all_users, 'users.csv')
+write_csv(all_users_external, 'users_external.csv')
+write_csv(all_user_apps, 'users_apps.csv')
+write_csv(all_user_emails, 'users_emails.csv')
+write_csv(all_user_files, 'users_files.csv')
+write_csv(all_users_browse, 'users_browser.csv')
+write_csv(all_users_incidents, 'users_incidents.csv')
+write_csv(all_files_honeypot, 'files_honeypot.csv')
