@@ -1,0 +1,45 @@
+CREATE QUERY incidents_devices() FOR GRAPH BehaviorPredator API("v2") SYNTAX v2 {
+
+  SetAccum<edge> @@FinalEdgeSet_4;
+  SetAccum<edge> @@FinalEdgeSet_5;
+  SetAccum<vertex<User>> @@FinalVertexSet_1;
+  SetAccum<vertex<Incidents>> @@FinalVertexSet_2;
+  SetAccum<vertex<ExternalDevice>> @@FinalVertexSet_3;
+
+  VertexSet_1 = 
+        SELECT alias_schema_1
+        FROM User:alias_schema_1 -(user_has_incidents:alias_schema_4)- Incidents:alias_schema_2,
+             User:alias_schema_1 -(user_plugs_device:alias_schema_5)- ExternalDevice:alias_schema_3
+        ACCUM @@FinalEdgeSet_4 += alias_schema_4,
+              @@FinalEdgeSet_5 += alias_schema_5
+        POST-ACCUM @@FinalVertexSet_1 += alias_schema_1
+        POST-ACCUM @@FinalVertexSet_2 += alias_schema_2
+        POST-ACCUM @@FinalVertexSet_3 += alias_schema_3
+        ;
+
+  PRINT @@FinalEdgeSet_4;
+
+  PRINT @@FinalEdgeSet_5;
+
+  VertexSet_1 = { @@FinalVertexSet_1 };
+  PRINT VertexSet_1[
+    VertexSet_1.name AS name,
+    VertexSet_1.role AS role,
+    VertexSet_1.threatscore AS threatscore
+  ];
+
+  VertexSet_2 = { @@FinalVertexSet_2 };
+  PRINT VertexSet_2[
+    VertexSet_2.description AS description,
+    VertexSet_2.severity AS severity,
+    VertexSet_2.reportedby AS reportedby,
+    VertexSet_2.date AS date
+  ];
+
+  VertexSet_3 = { @@FinalVertexSet_3 };
+  PRINT VertexSet_3[
+    VertexSet_3.date AS date,
+    VertexSet_3.devicename AS devicename
+  ];
+
+}
