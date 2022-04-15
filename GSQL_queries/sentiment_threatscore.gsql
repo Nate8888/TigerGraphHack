@@ -1,0 +1,37 @@
+CREATE QUERY sentiment_threatscore() FOR GRAPH BehaviorPredator API("v2") SYNTAX v2 {
+
+  SetAccum<edge> @@FinalEdgeSet_3;
+  SetAccum<vertex<User>> @@FinalVertexSet_1;
+  SetAccum<vertex<OutgoingEmail>> @@FinalVertexSet_2;
+
+  VertexSet_1 = 
+        SELECT alias_schema_1
+        FROM User:alias_schema_1 -(user_receives_email:alias_schema_3)- OutgoingEmail:alias_schema_2
+        WHERE (alias_schema_1.threatscore > 60) AND 
+              (alias_schema_2.sentiment < -0.6) AND 
+              (alias_schema_2.attachment == true)
+        ACCUM @@FinalEdgeSet_3 += alias_schema_3
+        POST-ACCUM @@FinalVertexSet_1 += alias_schema_1
+        POST-ACCUM @@FinalVertexSet_2 += alias_schema_2
+        ;
+
+  PRINT @@FinalEdgeSet_3;
+
+  VertexSet_1 = { @@FinalVertexSet_1 };
+  PRINT VertexSet_1[
+    VertexSet_1.name AS name,
+    VertexSet_1.role AS role,
+    VertexSet_1.threatscore AS threatscore
+  ];
+
+  VertexSet_2 = { @@FinalVertexSet_2 };
+  PRINT VertexSet_2[
+    VertexSet_2.recipient AS recipient,
+    VertexSet_2.sender AS sender,
+    VertexSet_2.message AS message,
+    VertexSet_2.attachment AS attachment,
+    VertexSet_2.date AS date,
+    VertexSet_2.sentiment AS sentiment
+  ];
+
+}
