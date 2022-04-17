@@ -321,7 +321,77 @@ for each_name in names:
             user['network'] = network
             all_users.append(user)
     elif id < len(roles) * roles_percentage[0] + len(roles) * roles_percentage[1] + len(roles) * roles_percentage[2] + len(roles) * roles_percentage[3] + len(roles) * roles_percentage[4]:
+        # Security Engineer
         user["role"] = roles[4]
+        # 98% of Security Engineer will be normal
+        coin_toss = random.randint(1, 100)
+        if coin_toss <= 98:
+            available_pool = 100
+            network = random.randint(60, 80)
+            available_pool -= network
+            internal = random.randint(available_pool//3, available_pool)
+            available_pool -= internal
+            database = random.randint(available_pool//2, available_pool)
+            available_pool -= database
+            classified = random.randint(0, available_pool//5)
+            available_pool -= classified
+            code = random.randint(0, available_pool//2)
+            available_pool -= code
+            multimedia = random.randint(0, available_pool//2)
+            available_pool -= multimedia
+            social = random.randint(0, available_pool)
+            available_pool -= social
+            graphic = random.randint(0, available_pool//2)
+            available_pool -= graphic
+            email = random.randint(0, available_pool//2)
+            available_pool -= email
+            pm = random.randint(0, available_pool)
+            available_pool -= pm
+            network += available_pool
+            user['network'] = network
+            user['internal'] = internal
+            user['database'] = database
+            user['classified'] = classified
+            user['code'] = code
+            user['multimedia'] = multimedia
+            user['social'] = social
+            user['graphic'] = graphic
+            user['email'] = email
+            user['pm'] = pm
+            all_users.append(user)
+        else:
+            available_pool = 100
+            network = random.randint(15, 50)
+            available_pool -= network
+            classified = random.randint(10, available_pool//2)
+            available_pool -= classified
+            database = random.randint(0, available_pool//1.4)
+            available_pool -= database
+            code = random.randint(available_pool//3, available_pool)
+            available_pool -= code
+            multimedia = random.randint(0, available_pool//2)
+            available_pool -= multimedia
+            social = random.randint(0, available_pool//2)
+            available_pool -= social
+            graphic = random.randint(0, available_pool//2)
+            available_pool -= graphic
+            email = random.randint(0, available_pool//2)
+            available_pool -= email
+            pm = random.randint(0, available_pool)
+            available_pool -= pm
+            network += available_pool//2
+            available_pool -= available_pool//2
+            classified += available_pool
+            user['network'] = network
+            user['classified'] = classified
+            user['database'] = database
+            user['code'] = code
+            user['multimedia'] = multimedia
+            user['social'] = social
+            user['graphic'] = graphic
+            user['email'] = email
+            user['pm'] = pm
+            all_users.append(user)
     else:
         user["role"] = roles[5]
     
