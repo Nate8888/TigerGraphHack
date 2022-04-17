@@ -251,7 +251,75 @@ for each_name in names:
             user['graphic'] = graphic
             all_users.append(user)
     elif id < len(roles) * roles_percentage[0] + len(roles) * roles_percentage[1] + len(roles) * roles_percentage[2] + len(roles) * roles_percentage[3]:
+        # Designer
         user["role"] = roles[3]
+        # 90% of Designer will be normal
+        coin_toss = random.randint(1, 100)
+        if coin_toss <= 90:
+            available_pool = 100
+            graphic = random.randint(60, 80)
+            available_pool -= graphic
+            multimedia = random.randint(available_pool//2, available_pool)
+            available_pool -= multimedia
+            social = random.randint(available_pool//2, available_pool)
+            available_pool -= social
+            email = random.randint(0, available_pool//2)
+            available_pool -= email
+            pm = random.randint(0, available_pool)
+            available_pool -= pm
+            internal = random.randint(0, available_pool)
+            available_pool -= internal
+            classified = random.randint(0, min(2, available_pool//5))
+            available_pool -= classified
+            code = 0
+            database = 0
+            network = 0
+            graphic += available_pool
+            user['graphic'] = graphic
+            user['multimedia'] = multimedia
+            user['social'] = social
+            user['email'] = email
+            user['pm'] = pm
+            user['internal'] = internal
+            user['classified'] = classified
+            user['code'] = code
+            user['database'] = database
+            user['network'] = network
+            all_users.append(user)
+        else:
+            available_pool = 100
+            graphic = random.randint(15, 60)
+            available_pool -= graphic
+            multimedia = random.randint(0, available_pool//2)
+            available_pool -= multimedia
+            code = random.randint(0, available_pool//2)
+            available_pool -= code
+            internal = random.randint(0, available_pool//2)
+            available_pool -= internal
+            social = random.randint(0, available_pool//2)
+            available_pool -= social
+            email = random.randint(0, available_pool//2)
+            available_pool -= email
+            pm = random.randint(0, available_pool)
+            available_pool -= pm
+            classified = random.randint(0, available_pool//5)
+            available_pool -= classified
+            database = random.randint(0, available_pool//2)
+            available_pool -= database
+            network = random.randint(0, available_pool//2)
+            available_pool -= network
+            graphic += available_pool
+            user['graphic'] = graphic
+            user['multimedia'] = multimedia
+            user['social'] = social
+            user['email'] = email
+            user['pm'] = pm
+            user['internal'] = internal
+            user['classified'] = classified
+            user['code'] = code
+            user['database'] = database
+            user['network'] = network
+            all_users.append(user)
     elif id < len(roles) * roles_percentage[0] + len(roles) * roles_percentage[1] + len(roles) * roles_percentage[2] + len(roles) * roles_percentage[3] + len(roles) * roles_percentage[4]:
         user["role"] = roles[4]
     else:
