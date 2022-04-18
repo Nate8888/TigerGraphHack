@@ -50,6 +50,7 @@ for each_name in names:
                     user[each_cat] = random.randint(0, available_pool)
                     available_pool -= user[each_cat]
             user['code'] += available_pool
+            user['evaluation'] = 1
             all_users.append(user)
         # 2 % will be potential anomaly
         elif coin_toss <= 97:
@@ -82,6 +83,7 @@ for each_name in names:
             user['graphic'] = graphic
             user['social'] = social
             user['multimedia'] = available_pool
+            user['evaluation'] = -1
             all_users.append(user)
         else: # super threat
             available_pool = 100
@@ -113,6 +115,7 @@ for each_name in names:
             user['graphic'] = graphic
             user['social'] = social
             user['multimedia'] = available_pool
+            user['evaluation'] = -1
             all_users.append(user)
     elif id < len(names) * roles_percentage[0] + len(names) * roles_percentage[1]:
         # Intelligence Officers
@@ -150,6 +153,7 @@ for each_name in names:
             user['social'] = social
             user['multimedia'] = available_pool
             user['code'] = code
+            user['evaluation'] = 1
             all_users.append(user)
         else:
             available_pool = 100
@@ -181,6 +185,7 @@ for each_name in names:
             user['database'] = database
             user['social'] = social
             user['multimedia'] = available_pool
+            user['evaluation'] = -1
             all_users.append(user)
     elif id < len(names) * roles_percentage[0] + len(names) * roles_percentage[1] + len(names) * roles_percentage[2]:
         # Project Manager
@@ -219,6 +224,7 @@ for each_name in names:
             user['database'] = database
             user['network'] = network
             user['graphic'] = graphic
+            user['evaluation'] = 1
             all_users.append(user)
         else:
             available_pool = 100
@@ -252,6 +258,7 @@ for each_name in names:
             user['multimedia'] = multimedia
             user['social'] = social
             user['graphic'] = graphic
+            user['evaluation'] = -1
             all_users.append(user)
     elif id < len(names) * roles_percentage[0] + len(names) * roles_percentage[1] + len(names) * roles_percentage[2] + len(names) * roles_percentage[3]:
         # Designer
@@ -288,6 +295,7 @@ for each_name in names:
             user['code'] = code
             user['database'] = database
             user['network'] = network
+            user['evaluation'] = 1
             all_users.append(user)
         else:
             available_pool = 100
@@ -322,6 +330,7 @@ for each_name in names:
             user['code'] = code
             user['database'] = database
             user['network'] = network
+            user['evaluation'] = -1
             all_users.append(user)
     elif id < len(names) * roles_percentage[0] + len(names) * roles_percentage[1] + len(names) * roles_percentage[2] + len(names) * roles_percentage[3] + len(names) * roles_percentage[4]:
         # Security Engineer
@@ -361,6 +370,7 @@ for each_name in names:
             user['graphic'] = graphic
             user['email'] = email
             user['pm'] = pm
+            user['evaluation'] = 1
             all_users.append(user)
         else:
             available_pool = 100
@@ -394,6 +404,7 @@ for each_name in names:
             user['graphic'] = graphic
             user['email'] = email
             user['pm'] = pm
+            user['evaluation'] = -1
             all_users.append(user)
     else:
         # Frequency Transmission Systems
@@ -409,6 +420,7 @@ for each_name in names:
                 user[cat] = random.randint(0, available_pool//2)
                 available_pool -= user[cat]
         user['network'] += available_pool
+        user['evaluation'] = 1
         all_users.append(user)
 
 # write the all_users list to a .csv file where the rows are the user data and the columns are the dictionary keys
