@@ -49,6 +49,7 @@ for each_name in names:
                 if each_cat not in user:
                     user[each_cat] = random.randint(0, available_pool)
                     available_pool -= user[each_cat]
+            user['code'] += available_pool
             all_users.append(user)
         # 2 % will be potential anomaly
         elif coin_toss <= 97:
@@ -208,7 +209,7 @@ for each_name in names:
             available_pool -= database
             network = random.randint(0, available_pool//2)
             available_pool -= network
-            user['pm'] = pm
+            user['pm'] = pm + available_pool
             user['email'] = email
             user['classified'] = classified
             user['internal'] = internal
@@ -242,7 +243,7 @@ for each_name in names:
             graphic = random.randint(0, available_pool//2)
             available_pool -= graphic
             user['pm'] = pm
-            user['code'] = code
+            user['code'] = code + available_pool
             user['classified'] = classified
             user['network'] = network
             user['database'] = database
