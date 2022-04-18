@@ -12,7 +12,9 @@ all_users = []
 for each_name in names:
     user = {}
     user["name"] = each_name
-    if id < len(roles) * roles_percentage[0]:
+    user['id'] = id
+    id += 1
+    if id < len(names) * roles_percentage[0]:
 
         # Software Engineers
         user["role"] = roles[0]
@@ -111,7 +113,7 @@ for each_name in names:
             user['social'] = social
             user['multimedia'] = available_pool
             all_users.append(user)
-    elif id < len(roles) * roles_percentage[0] + len(roles) * roles_percentage[1]:
+    elif id < len(names) * roles_percentage[0] + len(names) * roles_percentage[1]:
         # Intelligence Officers
         user["role"] = roles[1]
         # 98% of Intelligence Officers will be normal
@@ -179,7 +181,7 @@ for each_name in names:
             user['social'] = social
             user['multimedia'] = available_pool
             all_users.append(user)
-    elif id < len(roles) * roles_percentage[0] + len(roles) * roles_percentage[1] + len(roles) * roles_percentage[2]:
+    elif id < len(names) * roles_percentage[0] + len(names) * roles_percentage[1] + len(names) * roles_percentage[2]:
         # Project Manager
         user["role"] = roles[2]
         # 95% of Project Manager will be normal
@@ -250,7 +252,7 @@ for each_name in names:
             user['social'] = social
             user['graphic'] = graphic
             all_users.append(user)
-    elif id < len(roles) * roles_percentage[0] + len(roles) * roles_percentage[1] + len(roles) * roles_percentage[2] + len(roles) * roles_percentage[3]:
+    elif id < len(names) * roles_percentage[0] + len(names) * roles_percentage[1] + len(names) * roles_percentage[2] + len(names) * roles_percentage[3]:
         # Designer
         user["role"] = roles[3]
         # 90% of Designer will be normal
@@ -320,7 +322,7 @@ for each_name in names:
             user['database'] = database
             user['network'] = network
             all_users.append(user)
-    elif id < len(roles) * roles_percentage[0] + len(roles) * roles_percentage[1] + len(roles) * roles_percentage[2] + len(roles) * roles_percentage[3] + len(roles) * roles_percentage[4]:
+    elif id < len(names) * roles_percentage[0] + len(names) * roles_percentage[1] + len(names) * roles_percentage[2] + len(names) * roles_percentage[3] + len(names) * roles_percentage[4]:
         # Security Engineer
         user["role"] = roles[4]
         # 98% of Security Engineer will be normal
@@ -393,5 +395,28 @@ for each_name in names:
             user['pm'] = pm
             all_users.append(user)
     else:
+        # Frequency Transmission Systems
         user["role"] = roles[5]
-    
+        # all FT Systems will be normal
+        available_pool = 100
+        network = random.randint(80, available_pool)
+        available_pool -= network
+        user["network"] = network
+        # distribute the rest of the available pool randomly among the other cats
+        for cat in cats:
+            if cat != "network":
+                user[cat] = random.randint(0, available_pool//2)
+                available_pool -= user[cat]
+        user['network'] += available_pool
+        all_users.append(user)
+
+# write the all_users list to a .csv file where the rows are the user data and the columns are the dictionary keys
+def write_csv(list_of_dictionaries, filename):
+    with open(filename, 'w') as csvfile:
+        fieldnames = list_of_dictionaries[0].keys()
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for each_dict in list_of_dictionaries:
+            writer.writerow(each_dict)
+
+write_csv(all_users, 'cat_daily.csv')
