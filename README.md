@@ -14,3 +14,5 @@
 | [users_emails.csv](https://github.com/Nate8888/TigerGraphHack/blob/main/src/graph_data/users_emails.csv)  | Represents all emails sent by users. Messages are scrambled |
 | [users_external.csv](https://github.com/Nate8888/TigerGraphHack/blob/main/src/graph_data/users_external.csv)  | All external devices plugged by users|
 | [cat_daily.csv](https://github.com/Nate8888/TigerGraphHack/blob/main/src/cat_daily.csv)  | Dataset extracted from AppEvents, FileEvents, and Browse for anomaly detection |
+
+![Data Load Description](https://raw.githubusercontent.com/Nate8888/TigerGraphHack/main/platform_imgs/load_data.png)
