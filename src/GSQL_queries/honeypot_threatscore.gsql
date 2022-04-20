@@ -1,4 +1,4 @@
-CREATE QUERY honeypot_threatscore() FOR GRAPH BehaviorPredator API("v2") SYNTAX v2 {
+CREATE QUERY honeypot_threatscore(INT threatscoreval) FOR GRAPH BehaviorPredator API("v2") SYNTAX v2 {
 
   SetAccum<edge> @@FinalEdgeSet_4;
   SetAccum<edge> @@FinalEdgeSet_5;
@@ -10,13 +10,11 @@ CREATE QUERY honeypot_threatscore() FOR GRAPH BehaviorPredator API("v2") SYNTAX 
         SELECT alias_schema_1
         FROM User:alias_schema_1 -(user_file:alias_schema_4)- FileEvent:UserFiles,
              FileEvent:UserFiles -(file_is_pot:alias_schema_5)- FileHoneypot:UserHoneypots
-        WHERE (alias_schema_1.threatscore > 48)
+        WHERE (alias_schema_1.threatscore > threatscoreval)
         ACCUM @@FinalEdgeSet_4 += alias_schema_4,
               @@FinalEdgeSet_5 += alias_schema_5
         POST-ACCUM @@FinalVertexSet_1 += alias_schema_1
-        POST-ACCUM @@FinalVertexSet_2 += UserFiles
-        POST-ACCUM @@FinalVertexSet_3 += UserHoneypots
-        ;
+        POST-ACCUM @@FinalVertexSet_2 += UserFiles POST-ACCUM @@FinalVertexSet_3 += UserHoneypots ;
 
   PRINT @@FinalEdgeSet_4;
 

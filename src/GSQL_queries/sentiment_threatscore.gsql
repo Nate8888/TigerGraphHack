@@ -1,4 +1,4 @@
-CREATE QUERY sentiment_threatscore() FOR GRAPH BehaviorPredator API("v2") SYNTAX v2 {
+CREATE QUERY sentiment_threatscore(FLOAT sent, INT threats) FOR GRAPH BehaviorPredator API("v2") SYNTAX v2 {
 
   SetAccum<edge> @@FinalEdgeSet_3;
   SetAccum<vertex<User>> @@FinalVertexSet_1;
@@ -7,8 +7,8 @@ CREATE QUERY sentiment_threatscore() FOR GRAPH BehaviorPredator API("v2") SYNTAX
   VertexSet_1 = 
         SELECT alias_schema_1
         FROM User:alias_schema_1 -(user_receives_email:alias_schema_3)- OutgoingEmail:alias_schema_2
-        WHERE (alias_schema_1.threatscore > 60) AND 
-              (alias_schema_2.sentiment < -0.6) AND 
+        WHERE (alias_schema_1.threatscore > threats) AND 
+              (alias_schema_2.sentiment < sent) AND 
               (alias_schema_2.attachment == true)
         ACCUM @@FinalEdgeSet_3 += alias_schema_3
         POST-ACCUM @@FinalVertexSet_1 += alias_schema_1
