@@ -28,3 +28,13 @@ The graph contains 10 vertices and 9 edges representing relationships between th
 
 # Data flow in graph schema
 ![Data Load Description](https://raw.githubusercontent.com/Nate8888/TigerGraphHack/main/platform_imgs/load_data.png)
+
+# GSQL Queries
+
+With the current installed GSQL queries, BehaviorPredator allows people to explore the entire userbase, find users with a certain threat score, find users that triggered honeypot files and exceeded a threshold of threat score, find users that sent emails with attachments with low sentiment scores, and find users who recently plugged external devices with a record of incidents. In addition to that, BehaviorPredator gives the ability to find anomalies in a group of individuals with the same role in a company using an Isolation Forest Machine Learning model.
+
+|     File      | Description |
+| ------------- | ------------- |
+| [honeypot_threatscore.gsql](https://github.com/Nate8888/TigerGraphHack/blob/main/src/GSQL_queries/honeypot_threatscore.gsql)  | Able to find users that exceed a certain threat score and that have triggered a honeypot  |
+| [incidents_devices.gsql](https://github.com/Nate8888/TigerGraphHack/blob/main/src/GSQL_queries/incidents_devices.gsql)  | Find users with incident reports that have plugged external devices in the past |
+| [sentiment_threatscore.gsql](https://github.com/Nate8888/TigerGraphHack/blob/main/src/GSQL_queries/sentiment_threatscore.gsql)  | Find users that exceed a certain threat score and that had a negative amount of sentiment in emails with attachments  |
