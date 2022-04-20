@@ -1,4 +1,9 @@
 # BehaviorPredator
+
+BehaviorPredator is a scalable, fully-customizable, and integrable solution that focuses on identifying insider threats on companies of any size from medium-sized businesses to big corporations and military agencies.The solution is able to map the behaviors of employees in real-time using data inputs such as computer logs, file & folder manipulation, external device usage, email communications, incident reports, and much more!
+
+This data is then able to be browsed and analyzed in TigerGraph. After that, the user is able to run a series of GSQL queries to identify known suspicious behaviors and expand on potential threats. Users are able to create new rules using the BehaviorPatterns. In addition to providing support for identifying known suspicious behavior, BehaviorPredator is able to identify unknown insider threats by leveraging the use of group behavior analysis with unsupervised machine learning. This gives the ability for BehaviorPredator to single out those that pose a danger to the organization.
+
 ![BehaviorPredator Infographic](https://raw.githubusercontent.com/Nate8888/TigerGraphHack/main/info.jpg)
 
 # Data Files
