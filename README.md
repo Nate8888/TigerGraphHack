@@ -44,3 +44,9 @@ With the current installed GSQL queries, BehaviorPredator allows people to explo
 In order to identify unknown insider threats, BehaviorPredator uses data from the ApplicationEvents, FileEvents, and Browse vertices to compile a dataset of user behavior activity that is processed with an Isolation Forest model by roles in order to find anomalies. Each job role (Software Engineers, Intelligence Officers, Designers, etc.) has an Isolation Forest model that is able to find employees that stand out from the group of employees.
 
 [Anomaly Detection](https://github.com/Nate8888/TigerGraphHack/blob/main/src/Insider_Threat_Anomaly_Detection.ipynb)
+
+# Graph Export
+
+Feel free to import the graph data using TigerGraph's Graph Studio.
+
+[Graph Export](https://github.com/Nate8888/TigerGraphHack/tree/main/graph_export)
