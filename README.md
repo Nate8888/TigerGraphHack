@@ -38,3 +38,9 @@ With the current installed GSQL queries, BehaviorPredator allows people to explo
 | [honeypot_threatscore.gsql](https://github.com/Nate8888/TigerGraphHack/blob/main/src/GSQL_queries/honeypot_threatscore.gsql)  | Able to find users that exceed a certain threat score and that have triggered a honeypot  |
 | [incidents_devices.gsql](https://github.com/Nate8888/TigerGraphHack/blob/main/src/GSQL_queries/incidents_devices.gsql)  | Find users with incident reports that have plugged external devices in the past |
 | [sentiment_threatscore.gsql](https://github.com/Nate8888/TigerGraphHack/blob/main/src/GSQL_queries/sentiment_threatscore.gsql)  | Find users that exceed a certain threat score and that had a negative amount of sentiment in emails with attachments  |
+
+# Anomaly Detection
+
+In order to identify unknown insider threats, BehaviorPredator uses data from the ApplicationEvents, FileEvents, and Browse vertices to compile a dataset of user behavior activity that is processed with an Isolation Forest model by roles in order to find anomalies. Each job role (Software Engineers, Intelligence Officers, Designers, etc.) has an Isolation Forest model that is able to find employees that stand out from the group of employees.
+
+[Anomaly Detection](https://github.com/Nate8888/TigerGraphHack/blob/main/src/Insider_Threat_Anomaly_Detection.ipynb)
