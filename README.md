@@ -6,6 +6,12 @@ This data is then able to be browsed and analyzed in TigerGraph. After that, the
 
 ![BehaviorPredator Infographic](https://raw.githubusercontent.com/Nate8888/TigerGraphHack/main/info.jpg)
 
+# Graph Schema
+
+The graph contains 10 vertices and 9 edges representing relationships between the data. The core of the graph relies on the User Vertex. A User can trigger FileEvents, ApplicationEvents, Browsing, and External Devices. In addition to that, Users have a record of Incoming Emails, Outgoing Emails, and Incident Reports. FileEvents from Users can trigger "honeypots" (traps) that indicate suspicious behavior. External Devices have a relationship with registered Devices that define a potential threat through an external device.
+
+![BehaviorPredator Schema](https://raw.githubusercontent.com/Nate8888/TigerGraphHack/main/platform_imgs/graphschema.png)
+
 # Data Files
 
 |     File      | Description |
